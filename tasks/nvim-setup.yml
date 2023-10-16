@@ -1,8 +1,17 @@
-- name: Remove neovim
-  shell: rm -rf ~/neovim
+- name: install deps
+  become: true
+  apt: name=software-properties-common
 
+- name: add-apt-repository 
+  become: true
+  apt_repository:
+    repo: ppa:neovim-ppa/unstable
+    update_cache: True
   tags:
     - install
     - neovim
 
-    ...
+- name: install neovim
+  become: true
+  apt: name=neovim
+  tags: neovim

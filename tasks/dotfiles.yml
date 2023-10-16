@@ -1,0 +1,15 @@
+# Must migrate and fix
+
+
+- name: install stow
+  apt: name=stow
+  tags:
+    - install
+    - dotfiles
+    - stow
+
+- name: install dotfiles
+  ansible.builtin.git:
+    repo: 'git@github.com:Selyss/dotfiles.git'
+    dest: "{{ lookup('env', 'HOME') }}/dotfiles"
+
