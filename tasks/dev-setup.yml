@@ -1,7 +1,7 @@
 - name: install packages
   become: true
   apt:
-    name: ["tmux", "fzf", "ripgrep"]
+    name: ['tmux', 'fzf', 'ripgrep']
 
 
 
