@@ -1,0 +1,33 @@
+# STABLE
+
+- name: remove neovim
+  shell: rm -rf ~/neovim
+  tags: 
+    - remove
+
+- name: clone neovim
+  ansible.builtin.git:
+    repo: 'https://github.com/neovim/neovim.git'
+    dest: "{{ lookup('env', 'HOME') }}/neovim"
+    tags:
+      - clone
+
+- name: install neovim
+  become: true
+  shell: "cd {{ lookup('env', 'HOME') }}/neovim && make install"
+  tags:
+    - build
+
+- name: neovim plugin development 1
+  become: true
+  apt: name=luarocks
+  tags:
+    - install
+    - lua
+
+- name: neovim plugin development 2 luacheck
+  become: true
+  shell: luarocks install luacheck
+  tags:
+    - install
+    - lua

@@ -1,6 +1,11 @@
-- name: install deps
+# LATEST
+
+- name: install dependencies
   become: true
   apt: name=software-properties-common
+  tags: 
+    - install
+    - dependencies
 
 - name: add-apt-repository 
   become: true
@@ -8,10 +13,14 @@
     repo: ppa:neovim-ppa/unstable
     update_cache: True
   tags:
-    - install
-    - neovim
+    - update
+    - add-apt-repository
 
 - name: install neovim
   become: true
   apt: name=neovim
-  tags: neovim
+  tags:
+    - install
+
+
+

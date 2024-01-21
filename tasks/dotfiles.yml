@@ -1,15 +1,22 @@
-# Must migrate and fix
-
-
-- name: install stow
+- name: installing stow
   apt: name=stow
   tags:
     - install
-    - dotfiles
-    - stow
 
-- name: install dotfiles
+- name: cloning dotfiles
   ansible.builtin.git:
     repo: 'git@github.com:Selyss/dotfiles.git'
     dest: "{{ lookup('env', 'HOME') }}/dotfiles"
+    recursive: yes # TODO: needed?
+    update: yes
+    accept_hostkey: yes
+  tags:
+    - clone
+    - dotfiles
+
+- name: stow dotfiles
+  shell: cd {{ lookup('env', 'HOME') }}/dotfiles && stow -v -R -t {{ lookup('env', 'HOME') }} *
+  tags:
+    - stow
+    - dotfiles
 

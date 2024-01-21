@@ -1,0 +1,14 @@
+- name: install zsh
+  apt: name=zsh
+  tags:
+    &tags_for_zsh_tasks [ 'productivity', 'dotfiles', 'zsh' ]
+
+- name: change shell to zsh
+  shell: chsh -s $(which zsh)
+  tags: *tags_for_zsh_tasks
+
+# TODO: do i need something here
+
+- name: install zap
+  shell: zsh <(curl -s https://raw.githubusercontent.com/zap-zsh/zap/master/install.zsh) --branch release-v1
+  tags: *tags_for_zsh_tasks
